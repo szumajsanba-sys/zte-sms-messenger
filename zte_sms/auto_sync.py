@@ -40,6 +40,7 @@ class AutoSyncEngine:
         self.last_new_count: int = 0
         self.total_synced_runs: int = 0
         self.last_run_duration: float = 0.0
+        self.router_messages_count: int = 0
 
     def start(self) -> None:
         if self._thread and self._thread.is_alive():
@@ -79,6 +80,7 @@ class AutoSyncEngine:
                 "interval_seconds": self.interval,
                 "router_url": self.settings.router_url,
                 "total_messages": total_msgs,
+                "router_messages_count": self.router_messages_count,
                 "db_version": getattr(self.storage, "version", 0),
             }
 
@@ -107,6 +109,7 @@ class AutoSyncEngine:
         result: SyncResult | None = None
         error_msg: str | None = None
 
+        router_found = 0
         try:
             LOGGER.debug("AutoSync: starting sync with router %s", self.settings.router_url)
             result = self.sync_service.sync_from_router(cleanup=False)
@@ -114,6 +117,7 @@ class AutoSyncEngine:
                 is_connected = True
                 status_text = "connected"
                 new_count = result.messages_new
+                router_found = result.messages_found
             else:
                 is_connected = False
                 status_text = "error"
@@ -138,6 +142,8 @@ class AutoSyncEngine:
             self.last_new_count = new_count
             self.last_run_duration = duration
             self.total_synced_runs += 1
+            if is_connected:
+                self.router_messages_count = router_found
 
         if self.on_update:
             try:

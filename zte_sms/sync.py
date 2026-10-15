@@ -28,7 +28,7 @@ class SyncService:
         self._last_found_count: int = 0
         self._has_saved_initial_backup: bool = False
 
-    def sync_from_router(self, progress: ProgressCallback | None = None, cleanup: bool = False) -> SyncResult:
+    def sync_from_router(self, progress: ProgressCallback | None = None, cleanup: bool = False, dry_run: bool | None = None) -> SyncResult:
         progress = progress or (lambda _message: None)
         total_found = 0
         total_new = 0
@@ -37,6 +37,7 @@ class SyncService:
         decoded_path: Path | None = None
         all_warnings: list[str] = []
         cleanup_logs: list[str] = []
+        effective_dry_run = dry_run if dry_run is not None else self.settings.dry_run_delete
         try:
             progress("Подключение к роутеру")
             client = ZteClient(self.settings)
@@ -106,14 +107,17 @@ class SyncService:
                 deleted_count, logs = cleaner.delete_saved_messages(
                     self.settings.mem_store,
                     ids,
-                    dry_run=self.settings.dry_run_delete,
+                    dry_run=effective_dry_run,
                 )
                 total_deleted += deleted_count
                 cleanup_logs.extend(logs)
                 LOGGER.info("Cleanup logs: %s", logs)
-                if self.settings.dry_run_delete:
+                if effective_dry_run:
                     all_warnings.append("Dry-run удаления включен: SMS на роутере не удалялись.")
                     break
+                else:
+                    self._last_raw_hash = None
+                    self._last_found_count = 0
 
                 progress("Проверяю очистку")
                 remaining_raw = client.fetch_sms_raw()

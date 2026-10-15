@@ -87,11 +87,21 @@ class ZteApiHandler(BaseHTTPRequestHandler):
         elif path == "/api/settings":
             self.handle_update_settings(data)
         elif path == "/api/cleanup":
-            dry_run = data.get("dry_run", True)
+            dry_run = data.get("dry_run", False)
             try:
-                # Trigger cleanup via sync service
-                result = self.auto_sync.sync_service.sync_from_router(cleanup=True)
-                self.send_json({"ok": True, "result": result.status, "deleted": result.messages_deleted_from_router, "details": result.details})
+                # Trigger cleanup via sync service with explicit dry_run flag
+                result = self.auto_sync.sync_service.sync_from_router(cleanup=True, dry_run=dry_run)
+                with self.auto_sync._lock:
+                    if not dry_run and result.status == "ok":
+                        self.auto_sync.router_messages_count = max(0, self.auto_sync.router_messages_count - result.messages_deleted_from_router)
+                self.send_json({
+                    "ok": result.status == "ok",
+                    "result": result.status,
+                    "deleted": result.messages_deleted_from_router,
+                    "found": result.messages_found,
+                    "details": result.details,
+                    "warnings": result.warnings,
+                })
             except Exception as e:
                 self.send_json({"ok": False, "error": str(e)}, 500)
         else:

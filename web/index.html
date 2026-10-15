@@ -35,15 +35,15 @@
     }
 
     [data-theme="light"] {
-      --bg-base: #f1f5f9;
+      --bg-base: #f8fafc;
       --bg-panel: #ffffff;
-      --bg-card: #f8fafc;
+      --bg-card: #f1f5f9;
       --bg-hover: #e2e8f0;
       --border: #e2e8f0;
       --border-light: #cbd5e1;
       --text: #0f172a;
       --text-muted: #475569;
-      --text-dim: #94a3b8;
+      --text-dim: #64748b;
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
       --primary-glow: rgba(37, 99, 235, 0.15);
@@ -52,6 +52,21 @@
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
       --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
       --shadow-lg: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-light);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-dim);
     }
 
     * {
@@ -190,9 +205,144 @@
       border-color: var(--primary-hover);
     }
 
+    .btn-warning {
+      background: #ea580c;
+      border-color: #ea580c;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
+    }
+
+    .btn-warning:hover {
+      background: #c2410c;
+      border-color: #c2410c;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: transparent;
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      background: var(--bg-hover);
+      color: var(--text);
+    }
+
+    .btn-sm {
+      padding: 5px 12px;
+      font-size: 12px;
+    }
+
     .btn-icon {
       padding: 8px 10px;
       border-radius: var(--radius-sm);
+    }
+
+    /* Router Memory Pill */
+    .router-memory-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .router-memory-pill:hover {
+      background: var(--bg-hover);
+      border-color: var(--primary);
+    }
+
+    .router-memory-pill.warn-50 {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #f59e0b;
+    }
+
+    .router-memory-pill.warn-90 {
+      background: rgba(249, 115, 22, 0.2);
+      border-color: rgba(249, 115, 22, 0.6);
+      color: #f97316;
+    }
+
+    .router-memory-pill.warn-100 {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.7);
+      color: #ef4444;
+      animation: pulseCrit 1.2s infinite alternate;
+    }
+
+    @keyframes pulseCrit {
+      from { opacity: 0.85; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.04); }
+    }
+
+    /* Threshold Alert Banner */
+    .router-banner {
+      background: rgba(245, 158, 11, 0.12);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--text);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 25;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .router-banner.level-90 {
+      background: rgba(249, 115, 22, 0.16);
+      border-bottom: 1px solid rgba(249, 115, 22, 0.45);
+    }
+
+    .router-banner.level-100 {
+      background: rgba(239, 68, 68, 0.2);
+      border-bottom: 1px solid rgba(239, 68, 68, 0.6);
+    }
+
+    .router-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .router-banner-icon {
+      font-size: 20px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .router-banner-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .router-banner-content strong {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .router-banner-content span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .router-banner-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
     /* Main Container */
@@ -686,6 +836,25 @@
     </div>
 
     <div class="nav-actions">
+      <!-- Router Memory Usage Pill & Cleaner Button -->
+      <div class="router-memory-pill" id="router-memory-pill" title="ZTE modem memory usage. Click to clean.">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+          <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+          <line x1="6" y1="6" x2="6.01" y2="6"></line>
+          <line x1="6" y1="18" x2="6.01" y2="18"></line>
+        </svg>
+        <span id="router-mem-text">0/100</span>
+      </div>
+
+      <button class="btn btn-warning" id="btn-clean-router-open" title="Clean saved SMS from ZTE router memory (keeps in database)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        </svg>
+        <span data-i18n="clean_router">Clean Router</span>
+      </button>
+
       <button class="btn btn-primary" id="btn-sync-now" title="Trigger instant sync with ZTE modem">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="23 4 23 10 17 10"></polyline>
@@ -708,24 +877,46 @@
       </button>
 
       <button class="btn btn-icon" id="btn-lang-toggle" title="Switch Language">
-        <span id="lang-label" style="font-size: 11px; font-weight: 700;">RU</span>
+        <span id="lang-label" style="font-size: 11px; font-weight: 700;">🌐 RU</span>
       </button>
 
-      <button class="btn btn-icon" id="btn-theme-toggle" title="Dark / Light Theme">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
+      <button class="btn btn-icon" id="btn-theme-toggle" title="Toggle Dark/Light Theme">
+        <span id="theme-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </span>
       </button>
     </div>
   </header>
+
+  <!-- Router Memory Threshold Banner (>50, >90, 100) -->
+  <div class="router-banner" id="router-threshold-banner" style="display: none;">
+    <div class="router-banner-left">
+      <span class="router-banner-icon" id="banner-icon">⚠️</span>
+      <div class="router-banner-content">
+        <strong id="banner-title">Router Memory Warning</strong>
+        <span id="banner-message">Your router has stored messages.</span>
+      </div>
+    </div>
+    <div class="router-banner-right">
+      <button class="btn btn-sm btn-primary" id="btn-banner-clean">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        <span id="banner-btn-text">Clean Router Now</span>
+      </button>
+      <button class="btn btn-sm btn-ghost" id="btn-banner-dismiss" title="Dismiss / Remind later">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
 
   <!-- Main View -->
   <main class="app-body">
@@ -805,7 +996,7 @@
   <div class="modal-backdrop" id="settings-modal">
     <div class="modal-card">
       <div class="modal-head">
-        <h3 data-i18n="settings_title">Modem Settings & Auto-sync</h3>
+        <h3 data-i18n="settings_title">Modem Settings & Preferences</h3>
         <button class="btn btn-icon" id="btn-settings-close" style="border:none;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
@@ -826,8 +1017,80 @@
             <option value="2">2 - SIM Card</option>
           </select>
         </div>
+        <div class="form-group">
+          <label data-i18n="language_label">Language</label>
+          <select id="cfg-lang-select" class="form-input">
+            <option value="auto">🌐 Системный (Авто) / System (Auto)</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="en">🇬🇧 English</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="theme_label">Theme</label>
+          <select id="cfg-theme-select" class="form-input">
+            <option value="dark">🌙 Dark (Тёмная)</option>
+            <option value="light">☀️ Light (Светлая)</option>
+          </select>
+        </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
           <button class="btn btn-primary" id="btn-save-settings" data-i18n="save_settings">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Router Cleanup Modal -->
+  <div class="modal-backdrop" id="cleanup-modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:36px; height:36px; border-radius:8px; background:rgba(239, 68, 68, 0.15); color:var(--danger); display:flex; align-items:center; justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 data-i18n="cleanup_modal_title" style="font-size:16px; font-weight:700;">ZTE Router Memory Cleanup</h3>
+            <span id="modal-router-count-badge" style="font-size:11px; color:var(--text-dim);">On router: 0/100 SMS</span>
+          </div>
+        </div>
+        <button class="btn btn-icon" id="btn-cleanup-modal-close" style="border:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-content">
+        <!-- Critical alert message if >= 100 -->
+        <div id="cleanup-crit-alert" style="display:none; background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.5); color:#ef4444; border-radius:var(--radius-md); padding:12px; font-size:13px; font-weight:600; line-height:1.4;">
+          🚨 <span data-i18n="warn_100_title">Router SMS Memory is completely full (100/100)!</span><br>
+          <span style="font-weight:400; font-size:12px;" data-i18n="warn_100_desc">New incoming SMS cannot arrive until memory is freed! All SMS are preserved in SQLite.</span>
+        </div>
+
+        <div style="background:var(--bg-base); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:14px; font-size:13px; line-height:1.5; color:var(--text-muted); display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; gap:12px;">
+            <span style="font-size:20px; line-height:1;">🛡️</span>
+            <div>
+              <strong style="color:var(--text); display:block; margin-bottom:2px;" data-i18n="cleanup_safe_title">100% Safe Local Database Preservation</strong>
+              <p style="font-size:12.5px;" data-i18n="cleanup_safe_desc">All messages are already permanently saved in your local SQLite database. Cleaning only removes them from the physical ZTE modem memory.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px;">
+            <span style="font-size:20px; line-height:1;">📶</span>
+            <div>
+              <strong style="color:var(--text); display:block; margin-bottom:2px;" data-i18n="cleanup_reason_title">Why clean the modem memory?</strong>
+              <p style="font-size:12.5px;" data-i18n="cleanup_reason_desc">ZTE modems have a hard limit of 100 SMS. When the memory reaches 100/100, new incoming messages are dropped and never delivered by the mobile network.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="cleanup-live-status" style="display:none; padding:12px; border-radius:var(--radius-sm); font-size:13px; font-weight:600;"></div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; gap:12px;">
+          <button class="btn" id="btn-cleanup-modal-cancel" data-i18n="cancel">Cancel</button>
+          <button class="btn btn-primary" id="btn-cleanup-modal-execute" style="background:#e11d48; border-color:#e11d48;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <span data-i18n="cleanup_btn_action">Clean Router (Keep in Database)</span>
+          </button>
         </div>
       </div>
     </div>
@@ -841,6 +1104,7 @@
       en: {
         app_title: "ZTE SMS Live Messenger",
         sync_now: "Sync Now",
+        clean_router: "Clean Router",
         search_placeholder: "Search chats or text...",
         filter_all: "All",
         filter_unread: "Unread",
@@ -850,21 +1114,48 @@
         copy_chat: "Copy Chat",
         empty_title: "ZTE 4G SMS Live Messenger",
         empty_desc: "Select any conversation on the left to read messages. The server automatically connects to your ZTE modem and syncs new SMS every 5 seconds.",
-        settings_title: "Modem Settings & Auto-sync",
+        settings_title: "Modem Settings & Preferences",
         router_url: "ZTE Router IP / URL",
         password: "Admin Password",
         mem_store: "SMS Storage Memory",
+        language_label: "Language",
+        theme_label: "Theme",
+        theme_dark: "Dark",
+        theme_light: "Light",
         save_settings: "Save Settings",
         copied_toast: "Copied to clipboard!",
         connected_status: "Connected: {url} • Auto-syncing (5s)",
         syncing_status: "Syncing with router...",
         offline_status: "Connecting to {url}... (auto-retry 5s)",
         settings_saved: "Settings updated successfully!",
-        no_messages: "No messages found in this chat"
+        no_messages: "No messages found in this chat",
+        cleanup_modal_title: "ZTE Router Memory Cleanup",
+        on_router_label: "On router: {count}/100 SMS",
+        cleanup_safe_title: "100% Safe Local Database Preservation",
+        cleanup_safe_desc: "All messages are already permanently saved in your local SQLite database. Cleaning only removes them from the ZTE modem memory.",
+        cleanup_reason_title: "Why clean the modem memory?",
+        cleanup_reason_desc: "ZTE modems have a hard limit of 100 SMS. When the memory reaches 100/100, new incoming messages are dropped and never delivered by the mobile network.",
+        cleanup_btn_action: "Clean Router (Keep in Database)",
+        cleanup_in_progress: "Cleaning saved messages from ZTE router memory...",
+        cleanup_success: "Router memory cleaned successfully! Deleted {deleted} SMS. All data preserved in database.",
+        cleanup_success_toast: "Router cleaned: {deleted} SMS freed",
+        cleanup_failed: "Cleanup failed: ",
+        cancel: "Cancel",
+        close: "Close",
+        clean_now: "Clean Right Now",
+        remind_later: "Remind Later",
+        warn_50_title: "Router memory is half full ({count}/100 SMS)",
+        warn_50_desc: "All messages are saved locally in the database. You can safely clean router memory to free up space.",
+        warn_90_title: "Warning: Router memory almost full ({count}/100)!",
+        warn_90_desc: "Incoming SMS will soon be dropped by the modem. Cleaning router memory is strongly recommended.",
+        warn_100_title: "Critical: Router SMS Memory Full (100/100)!",
+        warn_100_desc: "ZTE modem limit reached! New incoming SMS CANNOT be received! All 100 SMS are saved in your database. Clean router memory right now.",
+        lang_switched_toast: "Language: {lang}"
       },
       ru: {
         app_title: "ZTE SMS Онлайн Мессенджер",
         sync_now: "Синхронизировать",
+        clean_router: "Очистить роутер",
         search_placeholder: "Поиск чатов или текста...",
         filter_all: "Все",
         filter_unread: "Непрочитанные",
@@ -874,45 +1165,123 @@
         copy_chat: "Копировать чат",
         empty_title: "ZTE 4G Онлайн Мессенджер",
         empty_desc: "Выберите чат слева для чтения сообщений. Программа автоматически подключается к модему ZTE и забирает новые SMS каждые 5 секунд.",
-        settings_title: "Настройки модема и автосинка",
+        settings_title: "Настройки модема и оформление",
         router_url: "IP адрес модема ZTE",
         password: "Пароль администратора",
         mem_store: "Память SMS",
+        language_label: "Язык интерфейса",
+        theme_label: "Тема оформления",
+        theme_dark: "Тёмная",
+        theme_light: "Светлая",
         save_settings: "Сохранить настройки",
         copied_toast: "Скопировано в буфер!",
         connected_status: "Модем подключен: {url} • Автосинк (5с)",
         syncing_status: "Синхронизация с модемом...",
         offline_status: "Подключение к {url}... (повтор каждые 5с)",
         settings_saved: "Настройки успешно сохранены!",
-        no_messages: "В этом чате пока нет сообщений"
+        no_messages: "В этом чате пока нет сообщений",
+        cleanup_modal_title: "Очистка памяти роутера ZTE",
+        on_router_label: "На роутере: {count}/100 SMS",
+        cleanup_safe_title: "Гарантия сохранности в локальной базе",
+        cleanup_safe_desc: "Все сообщения уже гарантированно сохранены в вашей локальной базе SQLite. Очистка удаляет SMS только из физической памяти модема ZTE.",
+        cleanup_reason_title: "Зачем очищать память модема?",
+        cleanup_reason_desc: "В модемах ZTE стоит жесткий лимит в 100 SMS. При заполнении до 100/100 новые входящие SMS просто не доходят от оператора, пока память не очищена.",
+        cleanup_btn_action: "Очистить роутер (сохранив в базе)",
+        cleanup_in_progress: "Удаляю сохраненные SMS из памяти роутера ZTE...",
+        cleanup_success: "Память роутера успешно очищена! Удалено {deleted} SMS. Все данные сохранены в базе данных.",
+        cleanup_success_toast: "Роутер очищен: освобождено {deleted} SMS",
+        cleanup_failed: "Ошибка очистки: ",
+        cancel: "Отмена",
+        close: "Закрыть",
+        clean_now: "Очистить прямо сейчас",
+        remind_later: "Напомнить позже",
+        warn_50_title: "Память роутера заполнена наполовину ({count}/100 SMS)",
+        warn_50_desc: "Все сообщения уже сохранены локально в базе. Можно безопасно очистить память модема, чтобы не копить лимит.",
+        warn_90_title: "Внимание: память роутера почти заполнена ({count}/100)!",
+        warn_90_desc: "Скоро новые входящие SMS перестанут поступать. Настоятельно рекомендуется очистить память модема.",
+        warn_100_title: "Критическая ошибка: память SMS роутера переполнена (100/100)!",
+        warn_100_desc: "Лимит модема ZTE исчерпан! Новые SMS НЕ могут быть приняты! Все 100 сообщений сохранены в локальной базе. Очистите роутер прямо сейчас.",
+        lang_switched_toast: "Язык: {lang}"
       }
     };
 
-    let currentLang = localStorage.getItem("zte_lang") || "ru";
+    // --- CIS System Language Detection ---
+    const CIS_LANG_PREFIXES = ["ru", "be", "uk", "kk", "ky", "tg", "uz", "az", "mo", "hy"];
+
+    function detectSystemLanguage() {
+      const navLangs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || navigator.userLanguage || "en"];
+      for (const raw of navLangs) {
+        if (!raw) continue;
+        const prefix = raw.toLowerCase().split(/[-_]/)[0];
+        if (CIS_LANG_PREFIXES.includes(prefix)) {
+          return "ru";
+        }
+      }
+      return "en";
+    }
+
+    let userLangPref = localStorage.getItem("zte_lang_pref") || "auto"; // Default is System (auto)!
+    let currentLang = (userLangPref === "auto") ? detectSystemLanguage() : userLangPref;
     let currentTheme = localStorage.getItem("zte_theme") || "dark";
 
-    function setLanguage(lang) {
+    function applyLanguage(lang) {
       currentLang = lang;
-      localStorage.setItem("zte_lang", lang);
-      document.getElementById("lang-label").innerText = lang === "en" ? "RU" : "EN";
+      const langBtnLabel = document.getElementById("lang-label");
+      if (langBtnLabel) {
+        if (userLangPref === "auto") {
+          langBtnLabel.innerText = `🌐 ${currentLang.toUpperCase()}`;
+        } else if (userLangPref === "ru") {
+          langBtnLabel.innerText = "🇷🇺 RU";
+        } else {
+          langBtnLabel.innerText = "🇬🇧 EN";
+        }
+      }
+
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const k = el.getAttribute("data-i18n");
-        if (I18N[lang] && I18N[lang][k]) {
+        if (I18N[currentLang] && I18N[currentLang][k]) {
           const sp = el.querySelector("span");
-          if (sp) sp.innerText = I18N[lang][k];
-          else el.innerText = I18N[lang][k];
+          if (sp) sp.innerText = I18N[currentLang][k];
+          else el.innerText = I18N[currentLang][k];
         }
       });
       document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
         const k = el.getAttribute("data-i18n-placeholder");
-        if (I18N[lang] && I18N[lang][k]) el.placeholder = I18N[lang][k];
+        if (I18N[currentLang] && I18N[currentLang][k]) el.placeholder = I18N[currentLang][k];
       });
+
+      const cfgLangSelect = document.getElementById("cfg-lang-select");
+      if (cfgLangSelect) cfgLangSelect.value = userLangPref;
+
+      document.title = (I18N[currentLang] && I18N[currentLang].app_title) || "ZTE SMS Live Messenger";
     }
+
+    function setLanguagePreference(pref) {
+      userLangPref = pref;
+      localStorage.setItem("zte_lang_pref", pref);
+      const effectiveLang = (pref === "auto") ? detectSystemLanguage() : pref;
+      applyLanguage(effectiveLang);
+      const desc = pref === "auto" ? (effectiveLang === "ru" ? "Системный (RU)" : "System (EN)") : (pref === "ru" ? "Русский" : "English");
+      showToast(I18N[currentLang].lang_switched_toast.replace("{lang}", desc));
+    }
+
+    const MOON_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+    const SUN_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
 
     function setTheme(theme) {
       currentTheme = theme;
       localStorage.setItem("zte_theme", theme);
       document.body.setAttribute("data-theme", theme);
+      const iconEl = document.getElementById("theme-icon");
+      if (iconEl) {
+        iconEl.innerHTML = (theme === "dark") ? SUN_ICON : MOON_ICON;
+      }
+      const themeBtn = document.getElementById("btn-theme-toggle");
+      if (themeBtn) {
+        themeBtn.title = (theme === "dark") ? "Switch to Light Theme" : "Switch to Dark Theme";
+      }
+      const cfgTheme = document.getElementById("cfg-theme-select");
+      if (cfgTheme) cfgTheme.value = theme;
     }
 
     // --- State ---
@@ -921,6 +1290,9 @@
     let currentFilter = "all";
     let searchQuery = "";
     let isLiveBackend = true;
+    let routerMessagesCount = 0;
+    let lastDismissedLevel = 0;
+    let autoModalShownFor100 = false;
 
     function getAvatarColor(name) {
       name = String(name || "unknown");
@@ -957,6 +1329,71 @@
       setTimeout(() => t.classList.remove("show"), 2500);
     }
 
+    // --- Router Memory & Threshold Banner ---
+    function updateRouterMemoryStatus(count) {
+      routerMessagesCount = count || 0;
+      const pill = document.getElementById("router-memory-pill");
+      const label = document.getElementById("router-mem-text");
+      const modalBadge = document.getElementById("modal-router-count-badge");
+      
+      if (label) {
+        label.innerText = `${routerMessagesCount}/100`;
+      }
+      if (modalBadge) {
+        modalBadge.innerText = (I18N[currentLang].on_router_label || "On router: {count}/100 SMS").replace("{count}", routerMessagesCount);
+      }
+
+      pill.classList.remove("warn-50", "warn-90", "warn-100");
+
+      const banner = document.getElementById("router-threshold-banner");
+      const bannerTitle = document.getElementById("banner-title");
+      const bannerMsg = document.getElementById("banner-message");
+      const bannerIcon = document.getElementById("banner-icon");
+      const critModalAlert = document.getElementById("cleanup-crit-alert");
+
+      if (routerMessagesCount >= 100) {
+        pill.classList.add("warn-100");
+        banner.className = "router-banner level-100";
+        bannerIcon.innerText = "🚨";
+        bannerTitle.innerText = I18N[currentLang].warn_100_title;
+        bannerMsg.innerText = I18N[currentLang].warn_100_desc;
+        banner.style.display = "flex";
+
+        if (critModalAlert) critModalAlert.style.display = "block";
+
+        // Auto-open cleanup modal on reaching 100 if not already open
+        if (!autoModalShownFor100 && !document.getElementById("cleanup-modal").classList.contains("active")) {
+          autoModalShownFor100 = true;
+          openCleanupModal();
+        }
+      } else if (routerMessagesCount >= 90) {
+        pill.classList.add("warn-90");
+        if (critModalAlert) critModalAlert.style.display = "none";
+        if (lastDismissedLevel < 90) {
+          banner.className = "router-banner level-90";
+          bannerIcon.innerText = "⚠️";
+          bannerTitle.innerText = I18N[currentLang].warn_90_title.replace("{count}", routerMessagesCount);
+          bannerMsg.innerText = I18N[currentLang].warn_90_desc;
+          banner.style.display = "flex";
+        }
+      } else if (routerMessagesCount >= 50) {
+        pill.classList.add("warn-50");
+        if (critModalAlert) critModalAlert.style.display = "none";
+        if (lastDismissedLevel < 50) {
+          banner.className = "router-banner";
+          bannerIcon.innerText = "💾";
+          bannerTitle.innerText = I18N[currentLang].warn_50_title.replace("{count}", routerMessagesCount);
+          bannerMsg.innerText = I18N[currentLang].warn_50_desc;
+          banner.style.display = "flex";
+        }
+      } else {
+        if (critModalAlert) critModalAlert.style.display = "none";
+        banner.style.display = "none";
+        lastDismissedLevel = 0;
+        autoModalShownFor100 = false;
+      }
+    }
+
     let lastDbVersion = null;
 
     // --- Live API Fetchers ---
@@ -967,6 +1404,10 @@
         const data = await res.json();
         updateStatusPill(data);
         isLiveBackend = true;
+
+        if (data.router_messages_count !== undefined) {
+          updateRouterMemoryStatus(data.router_messages_count);
+        }
 
         if (data.db_version && lastDbVersion !== null && data.db_version !== lastDbVersion) {
           fetchChats();
@@ -1083,6 +1524,16 @@
       }
     }
 
+    async function markChatAsRead(senderId) {
+      try {
+        await fetch("/api/mark_read", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sender_id: senderId })
+        });
+      } catch (e) {}
+    }
+
     function selectChat(chat) {
       if (!chat || chat.id === undefined || chat.id === null) return;
       if (activeSenderId === chat.id && currentlyRenderedSenderId === chat.id) {
@@ -1113,6 +1564,17 @@
       if (avatar) {
         avatar.innerText = getInitials(chat.display_name);
         avatar.style.background = getAvatarColor(chat.display_name);
+      }
+
+      // Automatically mark chat as read in UI and persist to SQLite database
+      if (chat.unread_count > 0) {
+        chat.unread_count = 0;
+        const itemEl = document.querySelector(`.chat-item[data-id="${chat.id}"]`);
+        if (itemEl) {
+          const badge = itemEl.querySelector(".unread-badge");
+          if (badge) badge.remove();
+        }
+        markChatAsRead(chat.id);
       }
 
       // Instant switch from cache (0ms) or clear previous chat's messages immediately
@@ -1222,12 +1684,19 @@
       navigator.clipboard.writeText(full).then(() => showToast(I18N[currentLang].copied_toast));
     });
 
-    // Language & Theme Toggle
+    // Language Toggle: cycle auto -> ru -> en -> auto
     document.getElementById("btn-lang-toggle").addEventListener("click", () => {
-      setLanguage(currentLang === "en" ? "ru" : "en");
+      if (userLangPref === "auto") {
+        setLanguagePreference("ru");
+      } else if (userLangPref === "ru") {
+        setLanguagePreference("en");
+      } else {
+        setLanguagePreference("auto");
+      }
       fetchStatus();
     });
 
+    // Theme Toggle
     document.getElementById("btn-theme-toggle").addEventListener("click", () => {
       setTheme(currentTheme === "dark" ? "light" : "dark");
     });
@@ -1260,6 +1729,8 @@
           document.getElementById("cfg-mem-store").value = String(cfg.mem_store || 1);
         }
       } catch (e) {}
+      document.getElementById("cfg-lang-select").value = userLangPref;
+      document.getElementById("cfg-theme-select").value = currentTheme;
     });
 
     document.getElementById("btn-settings-close").addEventListener("click", () => {
@@ -1272,6 +1743,16 @@
         password: document.getElementById("cfg-password").value,
         mem_store: parseInt(document.getElementById("cfg-mem-store").value, 10)
       };
+      const chosenLang = document.getElementById("cfg-lang-select").value;
+      const chosenTheme = document.getElementById("cfg-theme-select").value;
+
+      if (chosenLang !== userLangPref) {
+        setLanguagePreference(chosenLang);
+      }
+      if (chosenTheme !== currentTheme) {
+        setTheme(chosenTheme);
+      }
+
       try {
         await fetch("/api/settings", {
           method: "POST",
@@ -1282,6 +1763,97 @@
         showToast(I18N[currentLang].settings_saved);
         fetchStatus();
       } catch (e) {}
+    });
+
+    // Router Cleanup Modal
+    const cleanupModal = document.getElementById("cleanup-modal");
+    function openCleanupModal() {
+      const statusArea = document.getElementById("cleanup-live-status");
+      statusArea.style.display = "none";
+      document.getElementById("btn-cleanup-modal-execute").disabled = false;
+      const modalBadge = document.getElementById("modal-router-count-badge");
+      if (modalBadge) {
+        modalBadge.innerText = (I18N[currentLang].on_router_label || "On router: {count}/100 SMS").replace("{count}", routerMessagesCount);
+      }
+      cleanupModal.classList.add("active");
+    }
+
+    function closeCleanupModal() {
+      cleanupModal.classList.remove("active");
+    }
+
+    document.getElementById("btn-clean-router-open").addEventListener("click", openCleanupModal);
+    document.getElementById("router-memory-pill").addEventListener("click", openCleanupModal);
+    document.getElementById("btn-banner-clean").addEventListener("click", openCleanupModal);
+    document.getElementById("btn-cleanup-modal-close").addEventListener("click", closeCleanupModal);
+    document.getElementById("btn-cleanup-modal-cancel").addEventListener("click", closeCleanupModal);
+
+    // Dismiss Alert Banner
+    document.getElementById("btn-banner-dismiss").addEventListener("click", () => {
+      document.getElementById("router-threshold-banner").style.display = "none";
+      if (routerMessagesCount >= 100) {
+        lastDismissedLevel = 100;
+      } else if (routerMessagesCount >= 90) {
+        lastDismissedLevel = 90;
+      } else {
+        lastDismissedLevel = 50;
+      }
+    });
+
+    // Execute Cleanup (dry_run: false)
+    document.getElementById("btn-cleanup-modal-execute").addEventListener("click", async () => {
+      const execBtn = document.getElementById("btn-cleanup-modal-execute");
+      const statusArea = document.getElementById("cleanup-live-status");
+      execBtn.disabled = true;
+      statusArea.style.display = "block";
+      statusArea.style.background = "var(--bg-card)";
+      statusArea.style.color = "var(--text)";
+      statusArea.style.border = "1px solid var(--border)";
+      statusArea.innerText = I18N[currentLang].cleanup_in_progress;
+
+      try {
+        const res = await fetch("/api/cleanup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dry_run: false })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          statusArea.style.background = "rgba(16, 185, 129, 0.15)";
+          statusArea.style.color = "#10b981";
+          statusArea.style.border = "1px solid rgba(16, 185, 129, 0.4)";
+          const deleted = data.deleted || 0;
+          statusArea.innerText = (I18N[currentLang].cleanup_success || "Successfully deleted {deleted} saved SMS from router! All messages preserved in local SQLite database.").replace("{deleted}", deleted);
+          showToast((I18N[currentLang].cleanup_success_toast || "Router cleaned: {deleted} SMS freed").replace("{deleted}", deleted));
+
+          // Hide banner immediately
+          document.getElementById("router-threshold-banner").style.display = "none";
+          lastDismissedLevel = 0;
+          autoModalShownFor100 = false;
+
+          // Refresh status and chats immediately
+          setTimeout(() => {
+            fetchStatus();
+            fetchChats();
+          }, 600);
+
+          setTimeout(() => {
+            closeCleanupModal();
+          }, 2000);
+        } else {
+          statusArea.style.background = "rgba(239, 68, 68, 0.15)";
+          statusArea.style.color = "#ef4444";
+          statusArea.style.border = "1px solid rgba(239, 68, 68, 0.4)";
+          statusArea.innerText = (I18N[currentLang].cleanup_failed || "Cleanup error: ") + (data.error || "Unknown error");
+          execBtn.disabled = false;
+        }
+      } catch (err) {
+        statusArea.style.background = "rgba(239, 68, 68, 0.15)";
+        statusArea.style.color = "#ef4444";
+        statusArea.style.border = "1px solid rgba(239, 68, 68, 0.4)";
+        statusArea.innerText = (I18N[currentLang].cleanup_failed || "Cleanup error: ") + err.message;
+        execBtn.disabled = false;
+      }
     });
 
     // Delegated click listener on chat list for 100% reliable click handling
@@ -1300,7 +1872,7 @@
 
     // Initialize & Periodic Poll
     setTheme(currentTheme);
-    setLanguage(currentLang);
+    applyLanguage(currentLang);
     fetchStatus();
     fetchChats();
 

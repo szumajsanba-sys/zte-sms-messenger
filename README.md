@@ -33,11 +33,13 @@ The modem hardware actually receives and stores your SMS messages correctly, but
 
 - **5-Second Continuous Auto-Sync:** Never miss a verification code or 2FA SMS.
 - **Works Without Python:** Pre-compiled standalone Windows release in `release/ZTE-SMS-Messenger-Windows-x64.zip`.
+- **Router Memory Cleanup (100 SMS Limit Protection):** ZTE modems drop incoming SMS once the 100-SMS memory limit is reached. The app tracks modem memory usage in real time, warns at >50 and >90 SMS, triggers critical alerts at 100 SMS, and provides a 1-click clean button to free modem memory while **100% safely preserving every message in the local SQLite database**.
+- **Live Read/Unread Tracking:** Clicking any chat instantly clears unread badges and permanently saves `is_read=1` to SQLite.
+- **Smart CIS Language Auto-Detection:** Automatically selects Russian for CIS browser locales (`ru`, `be`, `uk`, `kk`, `ky`, `tg`, etc.) and English for all others, with 1-click manual switching (Auto / RU / EN).
+- **Dark & Light Themes:** Crisp modern dark and light modes with 1-click toggle.
 - **Live Modem Status Indicator:** Glowing green dot showing connection to `192.168.0.1` and live sync countdown.
 - **Instant Decoding:** Converts hex UTF-16 BE, UTF-16 LE, UTF-8, and GSM-7 SMS into readable text.
 - **Messenger Interface:** Telegram-style chat layout with sender avatars, date separators, formatted timestamps, copy buttons, and clickable links.
-- **Multilingual UI:** Instant switch between **English** and **Russian**.
-- **Dark & Light Themes:** Beautiful modern styling tailored for readability.
 - **Automated Backup & Database:** Stores messages in `data/db/sms.sqlite3`, raw backups in `data/raw/`, and decoded backups in `data/decoded/`.
 - **Excel-Friendly Export:** 1-click export to UTF-8 BOM CSV, JSON, and formatted TXT.
 
@@ -80,7 +82,11 @@ python main.py --gui
 **ZTE SMS Live Messenger** полностью и навсегда решает эту проблему:
 - **Автосинк при старте и каждые 5 секунд:** Программа сразу после запуска опрашивает модем по адресу `192.168.0.1` и каждые 5 секунд в фоновом режиме забирает новые SMS.
 - **Работает на любом ПК без установки Python:** Скомпилирована в готовый бинарник `ZTE-SMS-Messenger.exe`.
+- **Защита от переполнения памяти роутера (лимит 100 SMS):** Модемы ZTE прекращают принимать новые SMS при достижении лимита в 100 сообщений. Приложение отслеживает память в реальном времени, предупреждает при >50 и >90 SMS, бьет тревогу при 100 SMS и позволяет очистить память модема в 1 клик, **на 100% сохраняя все сообщения в локальной базе SQLite**.
 - **Живой Веб-Мессенджер:** При запуске автоматически открывает в браузере стильный интерфейс мессенджера (как Telegram Web) со всеми диалогами.
+- **Автоматический детект языка СНГ:** Из коробки выбирает русский язык для стран СНГ (`ru`, `be`, `uk`, `kk`, `ky` и др.) и английский для остальных, с возможностью ручного переключения.
+- **Светлая и тёмная темы:** Быстрое переключение оформления ☀️ / 🌙.
+- **Синхронизация прочитанных сообщений:** Клик по чату мгновенно отмечает сообщения прочитанными и сохраняет статус в базе SQLite.
 - **Обновление на лету:** Новые SMS и коды подтверждения появляются в окне автоматически в реальном времени.
 
 ---
