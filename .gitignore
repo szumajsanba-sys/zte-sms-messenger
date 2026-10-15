@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build / PyInstaller artifacts
+build/
+dist/
+release/
+*.spec
+
+# Application data & local databases (protect personal SMS)
+*.db
+*.sqlite3
+data/db/*
+!data/db/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+data/decoded/*
+!data/decoded/.gitkeep
+data/exports/*
+!data/exports/.gitkeep
+logs/*
+!logs/.gitkeep
+config/*
+!config/.gitkeep
+
+# Unrelated temporary files
+ege/
