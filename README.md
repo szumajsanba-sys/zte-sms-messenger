@@ -1,136 +1,115 @@
-# 💬 ZTE SMS Live Messenger & Keeper
+# 💬 ZTE SMS Онлайн Мессенджер & Хранитель SMS
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![GUI: PySide6](https://img.shields.io/badge/GUI-PySide6-41cd52.svg)](https://pypi.org/project/PySide6/)
-[![Auto-Sync: 5s](https://img.shields.io/badge/Auto--Sync-Every_5s-10b981.svg)](web/index.html)
-[![Standalone Executable](https://img.shields.io/badge/Release-Windows_x64-orange.svg)](release/ZTE-SMS-Messenger-Windows-x64.zip)
+[![Автосинк: 5с](https://img.shields.io/badge/Автосинк-Каждые_5с-10b981.svg)](web/index.html)
+[![Релиз Windows](https://img.shields.io/badge/Релиз-Windows_x64-orange.svg)](release/ZTE-SMS-Messenger-Windows-x64.zip)
 
-> 🚀 **The definitive fix for the infamous 10-year-old ZTE 4G modem bug** where the official web interface (`index.html#sms`) hangs forever on *"Waiting..."* / *"Ожидание..."*.
+> 🌐 **Язык документации / Language:** **Русский** | [🇬🇧 Switch to English Version (README_EN.md)](README_EN.md)
 
-[English](#english) | [Русский](#русский)
-
----
-
-<a name="english"></a>
-## 🇬🇧 English
-
-### Overview
-
-Many ZTE 4G LTE USB dongles and Wi-Fi routers (such as **ZTE MF833T, MF833V, MF286D, MF920**, etc.) suffer from a stubborn firmware bug: when users open the SMS inbox in the web management portal, the screen gets permanently stuck on a loading spinner showing **"Waiting..."**.
-
-The modem hardware actually receives and stores your SMS messages correctly, but the modem's built-in web script fails when rendering UTF-16 BE hex-encoded Cyrillic/multilingual messages.
-
-**ZTE SMS Live Messenger** solves this problem permanently:
-1. **Instant Auto-Sync on Launch & Continuous Sync Every 5 Seconds:** The app connects directly to your ZTE modem at `http://192.168.0.1`, pulls all incoming SMS immediately on startup, and automatically polls every 5 seconds in the background.
-2. **Standalone Executable (No Python Needed):** Download and run `ZTE-SMS-Messenger.exe`. It runs on any Windows x64 computer without Python installed!
-3. **High-End Web Messenger UI:** Automatically opens your default browser at `http://localhost:8080/` with a Telegram-style messenger interface.
-4. **Real-Time Live Updates:** New SMS appear automatically in real-time without page refreshes.
+> 🚀 **Окончательное решение 10-летней проблемы модемов и роутеров ZTE 4G LTE**, когда официальный веб-интерфейс (`index.html#sms`) бесконечно зависает с надписью *"Ожидание..."*.
 
 ---
 
-### Key Features
+## 📌 Описание проблемы и решения
 
-- **5-Second Continuous Auto-Sync:** Never miss a verification code or 2FA SMS.
-- **Works Without Python:** Pre-compiled standalone Windows release in `release/ZTE-SMS-Messenger-Windows-x64.zip`.
-- **Router Memory Cleanup (100 SMS Limit Protection):** ZTE modems drop incoming SMS once the 100-SMS memory limit is reached. The app tracks modem memory usage in real time, warns at >50 and >90 SMS, triggers critical alerts at 100 SMS, and provides a 1-click clean button to free modem memory while **100% safely preserving every message in the local SQLite database**.
-- **Live Read/Unread Tracking:** Clicking any chat instantly clears unread badges and permanently saves `is_read=1` to SQLite.
-- **Smart CIS Language Auto-Detection:** Automatically selects Russian for CIS browser locales (`ru`, `be`, `uk`, `kk`, `ky`, `tg`, etc.) and English for all others, with 1-click manual switching (Auto / RU / EN).
-- **Dark & Light Themes:** Crisp modern dark and light modes with 1-click toggle.
-- **Live Modem Status Indicator:** Glowing green dot showing connection to `192.168.0.1` and live sync countdown.
-- **Instant Decoding:** Converts hex UTF-16 BE, UTF-16 LE, UTF-8, and GSM-7 SMS into readable text.
-- **Messenger Interface:** Telegram-style chat layout with sender avatars, date separators, formatted timestamps, copy buttons, and clickable links.
-- **Automated Backup & Database:** Stores messages in `data/db/sms.sqlite3`, raw backups in `data/raw/`, and decoded backups in `data/decoded/`.
-- **Excel-Friendly Export:** 1-click export to UTF-8 BOM CSV, JSON, and formatted TXT.
+На множестве USB-модемов и 4G Wi-Fi роутеров ZTE (включая **ZTE MF833T, MF833V, MF286D, MF920, MF79U** и аналогичных) присутствует застарелый баг прошивки: при переходе во вкладку входящих SMS веб-панель модема навсегда зависает на бесконечном спиннере с надписью **«Ожидание...»**.
+
+При этом аппаратная часть модема исправно принимает SMS и хранит их во внутренней памяти, но встроенный JavaScript веб-панели ломается при попытке декодировать кириллические сообщения в формате UTF-16 BE Hex.
+
+**ZTE SMS Live Messenger** полностью решает эту проблему:
+1. **Мгновенный автосинк при запуске и каждые 5 секунд:** Программа сразу опрашивает роутер по адресу `http://192.168.0.1` и непрерывно в фоне получает все новые SMS.
+2. **Работает автономно без Python:** Скомпилирована в готовый бинарник `ZTE-SMS-Messenger.exe`, запускающийся на любом компьютере с Windows x64.
+3. **Живой Веб-Мессенджер:** При старте открывает браузер с удобным интерфейсом (в стиле Telegram Web) с диалогами, поиском и фильтрами.
+4. **Обновление на лету:** Новые SMS и коды подтверждений (2FA) появляются мгновенно без перезагрузки страниц.
 
 ---
 
-### ⚡ Quick Start: 2 Ways to Use
+## ✨ Ключевые возможности
 
-#### Method 1: Standalone Pre-compiled .EXE (Recommended for Users)
-1. Download `ZTE-SMS-Messenger-Windows-x64.zip` from [Releases](release/ZTE-SMS-Messenger-Windows-x64.zip) and extract it.
-2. Double-click **`ZTE-SMS-Messenger.exe`**.
-3. It immediately syncs with your ZTE modem, keeps syncing every 5 seconds, and opens the Web Messenger in your browser!
+- ⏱️ **Непрерывный автосинк (каждые 5 секунд):** Вы никогда не пропустите SMS с кодом подтверждения банка или сервиса.
+- 💻 **Работа без установки Python:** Готовый файл `ZTE-SMS-Messenger.exe` из архива `release/ZTE-SMS-Messenger-Windows-x64.zip`.
+- 🛡️ **Защита от лимита памяти роутера (100 SMS):** Модемы ZTE прекращают принимать новые входящие SMS, как только память заполняется до 100 сообщений. Приложение:
+  - Отслеживает точное количество SMS на роутере в реальном времени (`X/100 SMS`).
+  - Выдает предупреждения при заполнении наполовину (>50) и почти полном (>90).
+  - Выводит критическое окно тревоги при 100/100 SMS.
+  - Позволяет в 1 клик очистить память роутера, **на 100% гарантированно сохранив все SMS в локальной базе SQLite**.
+- 👁️ **Синхронизация прочитанных сообщений:** При клике на любой чат бейдж непрочитанных сообщений исчезает, а статус `is_read=1` и `unread_count=0` навсегда сохраняется в локальной базе.
+- 🌐 **Автоматический детект системного языка:** По умолчанию активирует русский язык для пользователей из РФ и стран СНГ (`ru`, `be`, `uk`, `kk`, `ky`, `tg`, `uz`, `az`, `mo`, `hy`), а для остальных — английский. В шапке доступно мгновенное переключение (Авто / RU / EN).
+- 🌓 **Светлая и тёмная темы:** Красивый интерфейс с быстрым переключением темы ☀️ / 🌙 в шапке.
+- 📶 **Живой индикатор подключения:** Зелёный пульсирующий статус связи с модемом `192.168.0.1`.
+- 🔤 **Умный декодер:** Автоматически распознает UCS-2 / UTF-16 BE, UTF-16 LE, UTF-8 и 7-битный GSM.
+- 💾 **Автоматический бэкап и SQLite:** Сохраняет базу в `data/db/sms.sqlite3`, сырые ответы в `data/backups/raw/`, а декодированные архивы в `data/backups/decoded/`.
+- 📊 **Экспорт для Excel:** Экспорт всей истории SMS в UTF-8 BOM CSV, JSON или TXT в один клик.
 
-#### Method 2: Run with Python Source
+---
+
+## ⚡ Быстрый старт
+
+### Способ 1: Готовый бинарник .EXE (Рекомендуется для пользователей)
+1. Скачайте архив [`release/ZTE-SMS-Messenger-Windows-x64.zip`](release/ZTE-SMS-Messenger-Windows-x64.zip) и распакуйте в любую папку.
+2. Запустите **`ZTE-SMS-Messenger.exe`**.
+3. Программа мгновенно свяжется с модемом, запустит фоновый опрос каждые 5 секунд и откроет веб-мессенджер в браузере по адресу `http://localhost:8080/`.
+
+### Способ 2: Запуск из исходного кода Python
 ```powershell
 git clone https://github.com/your-username/zte-sms-messenger.git
 cd zte-sms-messenger
 
-py -3.12 -m venv .venv
+# Создание и активация виртуального окружения
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
-# Start Live Web Messenger (auto-syncs every 5s & opens browser)
+# Вариант А: Запуск живого веб-мессенджера (автосинк 5с + автооткрытие браузера)
 python main.py
 
-# Or launch Desktop Qt GUI
+# Вариант Б: Запуск классического Qt десктопного GUI
 python main.py --gui
 ```
 
----
-
-<a name="русский"></a>
-## 🇷🇺 Русский
-
-### Описание
-
-На модемах и роутерах ZTE (например, **ZTE MF833T, MF833V, MF286D, MF920** и аналогичных) широко известна проблема: при попытке открыть раздел SMS веб-интерфейс (`index.html#sms`) уходит в вечное зависание с надписью **«Ожидание...»**.
-
-Модем исправно принимает сообщения, но встроенный JavaScript веб-панели ломается при обработке сообщений в кодировке UTF-16 BE (hex-представление русского текста).
-
-**ZTE SMS Live Messenger** полностью и навсегда решает эту проблему:
-- **Автосинк при старте и каждые 5 секунд:** Программа сразу после запуска опрашивает модем по адресу `192.168.0.1` и каждые 5 секунд в фоновом режиме забирает новые SMS.
-- **Работает на любом ПК без установки Python:** Скомпилирована в готовый бинарник `ZTE-SMS-Messenger.exe`.
-- **Защита от переполнения памяти роутера (лимит 100 SMS):** Модемы ZTE прекращают принимать новые SMS при достижении лимита в 100 сообщений. Приложение отслеживает память в реальном времени, предупреждает при >50 и >90 SMS, бьет тревогу при 100 SMS и позволяет очистить память модема в 1 клик, **на 100% сохраняя все сообщения в локальной базе SQLite**.
-- **Живой Веб-Мессенджер:** При запуске автоматически открывает в браузере стильный интерфейс мессенджера (как Telegram Web) со всеми диалогами.
-- **Автоматический детект языка СНГ:** Из коробки выбирает русский язык для стран СНГ (`ru`, `be`, `uk`, `kk`, `ky` и др.) и английский для остальных, с возможностью ручного переключения.
-- **Светлая и тёмная темы:** Быстрое переключение оформления ☀️ / 🌙.
-- **Синхронизация прочитанных сообщений:** Клик по чату мгновенно отмечает сообщения прочитанными и сохраняет статус в базе SQLite.
-- **Обновление на лету:** Новые SMS и коды подтверждения появляются в окне автоматически в реальном времени.
+Также в корне проекта доступны удобные батники:
+* [`run_web_server.bat`](run_web_server.bat) — запуск веб-сервера с автосинком в один клик.
+* [`run_desktop.bat`](run_desktop.bat) — запуск нативного Desktop GUI на PySide6.
 
 ---
 
-### Быстрый запуск
-
-1. Скачайте архив релиза `release/ZTE-SMS-Messenger-Windows-x64.zip` и распакуйте.
-2. Запустите файл **`ZTE-SMS-Messenger.exe`**.
-3. Программа подключится к модему, начнет синхронизацию каждые 5 секунд и откроет веб-мессенджер в вашем браузере!
-
----
-
-### Структура проекта
+## 📁 Структура проекта
 
 ```text
 ├── release/                # Готовый скомпилированный релиз (ZIP архив для Windows x64)
-├── run_web_server.bat      # Запуск сервера веб-мессенджера через Python
-├── run_desktop.bat         # Запуск Qt GUI интерфейса
-├── web/                    # Исходники живого веб-интерфейса
+├── run_web_server.bat      # Запуск веб-мессенджера в один клик
+├── run_desktop.bat         # Запуск Qt GUI интерфейса в один клик
+├── web/                    # Исходники живого веб-мессенджера
+│   └── index.html          # SPA с автосинком, темами, очисткой роутера и детектом языков
+├── standalone_viewer/      # Автономный веб-просмотрщик
 │   └── index.html
-├── zte_sms/                # Логика ядра
+├── zte_sms/                # Логика ядра приложения
 │   ├── auto_sync.py        # Фоновый движок автосинка каждые 5 секунд
 │   ├── server.py           # Встроенный HTTP сервер с REST API
+│   ├── cleanup.py          # Сервис очистки физической памяти роутера
 │   ├── auth.py             # Авторизация ZTE (SHA256, Base64, MD5 AD токены)
-│   ├── cleanup.py          # Пакетное удаление SMS с роутера
-│   ├── client.py           # HTTP клиент к роутеру
+│   ├── client.py           # HTTP клиент сетевого взаимодействия с роутером
 │   ├── decoder.py          # Декодер UTF-16 BE / UCS-2 / GSM
 │   ├── i18n.py             # Двуязычная локализация (EN / RU)
-│   ├── models.py           # Модели данных
-│   ├── settings.py         # Управление конфигурацией
-│   ├── storage.py          # База данных SQLite и экспорт
+│   ├── models.py           # Модели данных и настроек
+│   ├── settings.py         # Управление конфигурацией приложения
+│   ├── storage.py          # Хранилище SQLite и экспорт
 │   └── sync.py             # Сервис синхронизации и бэкапов
-├── ui/                     # Графический интерфейс PySide6
-│   ├── main_window.py      # Главное окно с поддержкой автосинка
+├── ui/                     # Десктопный интерфейс на PySide6
+│   ├── main_window.py      # Главное окно с поддержкой настроек и фильтров
 │   └── workers.py          # Фоновые потоки QThread
-├── main.py                 # Главная точка входа (Web Server + AutoSync / GUI / CLI)
+├── main.py                 # Главная точка входа (Web Server + AutoSync / Desktop GUI / CLI)
 ├── build_release.py        # Скрипт компиляции .exe через PyInstaller
 ├── MAIL_RU_ANSWER.md       # Готовый ответ для публикации на Ответах Mail.ru / 4PDA
 ├── requirements.txt        # Зависимости Python
 ├── LICENSE                 # Лицензия MIT
-└── README.md
+├── README.md               # Документация на русском языке (по умолчанию)
+└── README_EN.md            # English documentation
 ```
 
 ---
 
-### Лицензия
-Распространяется под свободной лицензией [MIT](LICENSE).
+## 📄 Лицензия
+Проект распространяется под свободной и открытой лицензией [MIT](LICENSE).
